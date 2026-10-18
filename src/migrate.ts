@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { pool } from './db.js';
 import { seedPermissionCatalog } from './permissions.js';
 
-const dir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../migrations');
+const dir = path.resolve(process.cwd(), 'migrations');
 
 /** Applies pending SQL migrations (in filename order) exactly once each, then syncs the permission catalog. */
 export async function migrate(log = true) {
