@@ -27,7 +27,9 @@ export function createApp() {
   app.use(express.json({ limit: '256kb' }));
   if (!config.isTest) app.use((req, res, next) => { const t = Date.now(); res.on('finish', () => console.log(`${req.method} ${req.originalUrl.split('?')[0]} ${res.statusCode} ${Date.now() - t}ms`)); next(); });
 
-  app.get('/health', async (_q, res) => { try { await pool.query('select 1'); res.json({ success: true, data: { status: 'ok' } }); } catch { res.status(503).json({ success: false, message: 'Database unavailable', code: 'UNAVAILABLE' }); } });
+  app.get(['/health', '/healthz'], (_q, res) => {
+  res.status(200).json({ success: true, status: 'ok' });
+});
   const spec = buildOpenApi();
   app.get('/api/openapi.json', (_q, res) => res.json(spec));
   app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(spec));
