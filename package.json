@@ -10,7 +10,7 @@
     "start": "node dist/src/server.js",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "migrate": "tsx src/migrate.ts",
-    "seed": "tsx src/seeds.ts",
+    "seed": "tsx src/seed.ts",
     "test": "vitest run"
   },
   "engines": {
